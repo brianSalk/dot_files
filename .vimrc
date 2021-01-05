@@ -3,5 +3,7 @@ set tabstop=4
 set virtualedit+=onemore
 set visualbell
 set shiftwidth=4 " this enables < and > to have 4 space width
+set hlsearch
 syntax on
+command Hl :set hlsearch!
 
