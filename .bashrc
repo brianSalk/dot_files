@@ -117,3 +117,10 @@ set -o vi
 set show-mode-in-prompt on
 AWKPATH="/usr/local/share/awk"
 PROMPT_DIRTRIM=2
+# my aliases are in a seperate special file called .bash_aliases
+if [ -f ~/.bash_aliases ]; then
+	. ~/.bash_aliases
+else
+	echo "no bash alias files in your bashrc"
+fi
+
