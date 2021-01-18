@@ -123,4 +123,7 @@ if [ -f ~/.bash_aliases ]; then
 else
 	echo "no bash alias files in your bashrc"
 fi
-
+PY_3_8="/usr/local/bin/python3.8"
+if [ -f $PY_3_8 ]; then
+	alias python="$PY_3_8"
+fi
