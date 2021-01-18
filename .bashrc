@@ -114,15 +114,10 @@ fi
 
 #This is stuff that I added, if anything goes horrably wrong, just try deleting all of this stuff down here first
 set -o vi
+set keyseq-timeout 50
 set show-mode-in-prompt on
 AWKPATH="/usr/local/share/awk"
 PROMPT_DIRTRIM=2
-# my aliases are in a seperate special file called .bash_aliases
-if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
-else
-	echo "no bash alias files in your bashrc"
-fi
 PY_3_8="/usr/local/bin/python3.8"
 if [ -f $PY_3_8 ]; then
 	alias python="$PY_3_8"
