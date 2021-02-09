@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/pi/Documents/notes/regex/mastering_regular_expressions/del_me'
+let g:netrw_dirhist_6='/home/pi/Documents/notes/languages/awk/functions'
+let g:netrw_dirhist_5='/home/pi/Documents/projects/java/coursera/week4/notes'
+let g:netrw_dirhist_4='/home/pi/Documents/notes/math/calc/1'
+let g:netrw_dirhist_3='/etc/vim'
+let g:netrw_dirhist_2='/'
+let g:netrw_dirhist_1='/home/pi/Documents/notes/regex/mastering_regular_expressions'

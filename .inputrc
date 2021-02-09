@@ -1,0 +1,4 @@
+set keyseq-timeout 50
+set bell-style none
+set show-mode-in-prompt on
+
