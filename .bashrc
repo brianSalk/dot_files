@@ -14,10 +14,10 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND" # update .bash_history immediately
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=2000 
+HISTFILESIZE=1000000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -114,11 +114,20 @@ fi
 
 #This is stuff that I added, if anything goes horrably wrong, just try deleting all of this stuff down here first
 set -o vi
-set keyseq-timeout 50
-set show-mode-in-prompt on
-AWKPATH="/usr/local/share/awk"
+set -o noclobber
+export PATH="$PATH:$HOME/.vim/pack/plugins/start/vim-superman/bin"
+export AWKPATH="/usr/local/share/awk"
 PROMPT_DIRTRIM=2
 PY_3_8="/usr/local/bin/python3.8"
 if [ -f $PY_3_8 ]; then
 	alias python="$PY_3_8"
+	export PATH="${PATH}:$PY_3_8"
+fi
+export EDITOR='vim'
+export VISUAL='vim'
+_IFS=$IFS
+DIR_M_PATH='/usr/local/bin/dir_m.sh'
+if [ -f "$DIR_M_PATH" ]
+then
+	source $DIR_M_PATH
 fi

@@ -1,3 +1,7 @@
 alias ll='ls -l'
 alias la='ls -a'
 alias update='sudo apt-get update'
+alias install='sudo apt-get install'
+alias search='apt-cache search'
+alias cls='clear'
+alias lal='ls -la'
