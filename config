@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
 
 sudo apt-get -y install vim python3 tmux git build-essential cmake vim-nox python3-dev mono-complete golang nodejs default-jdk npm
-files=(*)
+# to read more about the proceeding line check out:
+# https://www.google.com/search?channel=fs&client=ubuntu&q=when+is+readarray+supported+in+bash
+readarray -d '' files < <(find . -max-depth 1 -name "*" -print0)
 for each in "${files[@]}";
 do
-	if [ -f $each ]
+	if [ $each == "config"]
+	then
+		continue
+	elif [ -f $each ]
 	then
 		ln $each ~/$each
 	elif [ -d $each ];
 	then
 		ln -s $each ~/$each
 	else
-		echo "$each is not a files of a directory" 2>&
+		echo "$each is not a file of a directory" 2>&
 		exit 1
 	fi
 	
