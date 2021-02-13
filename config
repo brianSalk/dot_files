@@ -6,37 +6,35 @@ sudo apt-get -y install vim python3 tmux git build-essential cmake vim-nox pytho
 readarray -d '' files < <(find . -max-depth 1 -name "*" -print0)
 for each in "${files[@]}";
 do
-	if [ $each == "config"]
+	if [[ "$each" =~ ^\.[^.].* ]] # only link dot files
 	then
 		continue
-	elif [ -f $each ]
+	elif [ -f $each ] # files can be hard linked
 	then
 		ln $each ~/$each
-	elif [ -d $each ];
+	elif [ -d $each ]; # directories need symlink
 	then
 		ln -s $each ~/$each
-	else
-		echo "$each is not a file of a directory" 2>&
-		exit 1
 	fi
-	
 done
 
 if [ -d .vim/pack/plugins/start ];
 then
 	cd .vim/pack/plugins/start
-	git clone https://github.com/vim-scripts/PaperColor.vim.git
 	git clone https://github.com/Raimondi/delimitMate.git
+	git clone https://github.com/NLKNguyen/papercolor-theme.git
+	git clone https://github.com/christoomey/vim-conflicted.git
 	git clone https://github.com/vim-airline/vim-airline.git
 	git clone https://github.com/vim-airline/vim-airline-themes.git
-	git clone https://github.com/christoomey/vim-conflicted.git
 	git clone https://github.com/tpope/vim-fugitive.git
 	git clone https://github.com/artur-shaik/vim-javacomplete2.git
 	git clone https://github.com/jez/vim-superman.git
 	git clone https://github.com/ycm-core/YouCompleteMe.git
+	# Todo: add logic checking if this was already done because it can take a long time to complete
 	if [ -d YouCompleteMe ];
 	then
 		cd YouCompleteMe
+		git submodule update --init --recursive
 		python3 install.py --all
 	fi
 fi
