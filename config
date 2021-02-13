@@ -6,7 +6,9 @@ sudo apt-get -y install vim python3 tmux git build-essential cmake vim-nox pytho
 readarray -d '' files < <(find . -maxdepth 1 -name "*" -print0)
 for each in "${files[@]}";
 do
-	if [[ "$each" =~ ^\.[^.].* ]] || [ $each == ".git" ] # only link dot files
+
+	each=${each#./}
+	if [[ "$each" =~ ^\.[^.].* ]] || [ "$each" == ".git" ] # only link dot files
 	then
 		continue
 	elif [ -f $each ] # files can be hard linked
