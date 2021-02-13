@@ -3,10 +3,10 @@
 sudo apt-get -y install vim python3 tmux git build-essential cmake vim-nox python3-dev mono-complete golang nodejs default-jdk npm
 # to read more about the proceeding line check out:
 # https://www.google.com/search?channel=fs&client=ubuntu&q=when+is+readarray+supported+in+bash
-readarray -d '' files < <(find . -max-depth 1 -name "*" -print0)
+readarray -d '' files < <(find . -maxdepth 1 -name "*" -print0)
 for each in "${files[@]}";
 do
-	if [[ "$each" =~ ^\.[^.].* ]] # only link dot files
+	if [[ "$each" =~ ^\.[^.].* ]] || [ $each == ".git" ] # only link dot files
 	then
 		continue
 	elif [ -f $each ] # files can be hard linked
@@ -14,7 +14,7 @@ do
 		ln $each ~/$each
 	elif [ -d $each ]; # directories need symlink
 	then
-		ln -s $each ~/$each
+		ln -s $each ~/$each # for some reason, this is giving me a circular symlink.  I need to look into this.
 	fi
 done
 
