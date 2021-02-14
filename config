@@ -36,7 +36,7 @@ do
 	elif [ -d $each ]; # directories need symlink
 	then
 		PROMPT_AND_READ
-		ln -s -v "dot_files/$each" "$HOME/$each" 
+		ln -s -v "repos/dot_files/$each" "$HOME/$each" 
 	fi
 done
 
@@ -51,13 +51,17 @@ then
 	git clone https://github.com/tpope/vim-fugitive.git
 	git clone https://github.com/artur-shaik/vim-javacomplete2.git
 	git clone https://github.com/jez/vim-superman.git
-	git clone https://github.com/ycm-core/YouCompleteMe.git
-	# Todo: add logic checking if this was already done because it can take a long time to complete
-	if [ -d YouCompleteMe ];
+	echo "YouCompleteMe is over a Gig, do you still want it?"
+	read -r answer
+	if [ ${answer,} == 'y' ]
 	then
-		cd YouCompleteMe
-		git submodule update --init --recursive
-		python3 install.py --all
+		git clone https://github.com/ycm-core/YouCompleteMe.git
+		if [ -d YouCompleteMe ];
+		then
+			cd YouCompleteMe
+			git submodule update --init --recursive
+			python3 install.py --all
+		fi
 	fi
 fi
 
