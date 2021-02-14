@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
 
-sudo apt-get -y install vim python3 tmux git build-essential cmake vim-nox python3-dev mono-complete golang nodejs default-jdk npm
+function PROMPT_AND_READ {
+	if [ -e "$HOME/$each" ]
+	then
+		local answer='a'
+		while [  ${answer,} != 'y' ] && [ ${answer,} != 'n' ] 
+		do echo "would you like to replace $each in ${HOME}? (Y/n)"
+			read answer
+		done
+		if [ ${answer} == 'y' ]
+		then
+			rm -fr "$HOME/$each"
+		fi
+	fi
+}
+# break long linst of arguments to apt-get install for slow computers.
+sudo apt-get -y install vim python3 tmux git 
+sudo apt-get -y install build-essential cmake vim-nox python3-dev 
+sudo apt-get -y install mono-complete golang nodejs default-jdk npm
 # to read more about the proceeding line check out:
 # https://www.google.com/search?channel=fs&client=ubuntu&q=when+is+readarray+supported+in+bash
 readarray -d '' files < <(find . -maxdepth 1 -name "*" -print0)
@@ -8,15 +25,18 @@ for each in "${files[@]}";
 do
 
 	each=${each#./}
-	if [[ "$each" =~ ^\.[^.].* ]] || [ "$each" == ".git" ] # only link dot files
+	echo "looks like $each ----------------------------------------"
+	if [[ ! $each =~ ^\.[^.].* ]] || [ "$each" == ".git" ] # only dot,no git
 	then
 		continue
 	elif [ -f $each ] # files can be hard linked
 	then
-		ln $each ~/$each
+		PROMPT_AND_READ
+		ln -v "$each" "$HOME/$each"
 	elif [ -d $each ]; # directories need symlink
 	then
-		ln -s $each ~/$each # for some reason, this is giving me a circular symlink.  I need to look into this.
+		PROMPT_AND_READ
+		ln -s -v "dot_files/$each" "$HOME/$each" 
 	fi
 done
 
