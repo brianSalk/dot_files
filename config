@@ -25,7 +25,6 @@ for each in "${files[@]}";
 do
 
 	each=${each#./}
-	echo "looks like $each ----------------------------------------"
 	if [[ ! $each =~ ^\.[^.].* ]] || [ "$each" == ".git" ] # only dot,no git
 	then
 		continue
