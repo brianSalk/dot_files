@@ -126,8 +126,28 @@ fi
 export EDITOR='vim'
 export VISUAL='vim'
 _IFS=$IFS
+# figure out if you want to delete this part
 DIR_M_PATH='/usr/local/bin/dir_m.sh'
 if [ -f "$DIR_M_PATH" ]
 then
 	source $DIR_M_PATH
 fi
+if [ -f $HOME/.bash_functions ]; then
+	. $HOME/.bash_functions
+fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/brian/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/brian/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/brian/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/brian/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
