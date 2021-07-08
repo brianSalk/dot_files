@@ -17,6 +17,15 @@ function dirm() {
 	# first check which command is being used
 	#+ commands are: goto, print, add, del, all, update
 	case "$1" in
+		--help)
+			echo dirm args:
+			echo add: add a new alias or path
+			echo all: prints all paths, accepts an optional regex
+			echo del: delete an alias
+		   	echo goto: goto path associated with an alias 	
+			echo print:
+			echo update:
+			;;
 		add)
 			if [ $# -eq 3 ]; then
 				_PATH="$3"
@@ -53,7 +62,7 @@ function dirm() {
 		del)
 			if [ $# -lt 2 ]; then
 				echo "dirm del requires one or more arguments in the form of:" >&2
-				echo "dirm del <alias1 [<alias2>...]>"
+				echo "dirm del <alias1 [<alias2>...]>" >&2
 				return
 			fi
 			# if the alias exists remove it, else nothing
@@ -67,7 +76,7 @@ function dirm() {
 		goto)
 			if [ $# -ne 2 ]; then
 				echo "dirm goto requires exactly one argument in the form of:" >&2
-				echo "dirm goto <alias>" >&s
+				echo "dirm goto <alias>" >&2
 				return
 			fi
 			# find alias in file, get the line number, 
