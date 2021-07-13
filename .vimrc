@@ -10,6 +10,7 @@ function Toggle_ycm_auto_hover()
 endfunction
 " -----------------------
 set number
+set scrolloff=0 " ensure that pressing L and H puts cursor at top/bottom of screen
 set tabstop=4
 set virtualedit+=onemore
 set visualbell " prevents the annoying bell
@@ -17,6 +18,7 @@ set shiftwidth=4 " this enables < and > to have 4 space width
 set nohlsearch " do not highlight searches by default
 set showcmd " shows command in bottom right corner of screen
 syntax on
+" YcmShowDetailedDiagnostic alias
 command Hl :set hlsearch! " use :Hl to toggle highlight
 command Sp :set spell! " use :Sp to toggle spell on and off
 command Ac :call Toggle_ycm_auto_hover() " press :Ac to toggle YCM's auto popup
@@ -59,6 +61,7 @@ let delimitMate_expand_cr = 1
 " this stuff is related to YouCompleteMe
 " -------------------------------------
 set updatetime=100 " holding cursor over word for 1/10 second displays the info
+command Err YcmShowDetailedDiagnostic
 
 au Filetype java nnoremap \p aSystem.out.println();<Esc>hi
 au Filetype java nnoremap \m ipublic class <ESC>"%pF.c2w {<ENTER>public static void main(String[] args) {<ENTER>System.out.println("Hello world");<ENTER>}<ENTER>}<Esc>2kll
@@ -74,4 +77,4 @@ au FileType plaintex nnoremap \p pggi\documentclass{article}<ENTER>\begin{docume
 au FileType text setlocal spell spelllang=en_us
 " here is the shame section, this is all stuff I just copy and pasted without
 " understading
-set t_ut= " this fixes the background color scrolling issue
+set t_ut= " this fixes the background color scrolling issue somehow

@@ -87,6 +87,7 @@ function dirm() {
 			_PATH=$(cut -d' ' -f1 --complement <<< "$_PATH")
 			if [ -n "${_PATH}" ]; then
 				cd "${_PATH}"
+				clear
 			else
 				echo "$ALIAS not found, add it with:" >&2
 				echo "dirm add $ALIAS <path>" >&2
