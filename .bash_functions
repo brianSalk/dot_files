@@ -23,8 +23,8 @@ function dirm() {
 			echo all: prints all paths, accepts an optional regex
 			echo del: delete an alias
 		   	echo goto: goto path associated with an alias 	
-			echo print:
-			echo update:
+			echo path: prints the path with the alias
+			echo update: update the path associated with an alias
 			;;
 		add)
 			if [ $# -eq 3 ]; then
@@ -93,10 +93,10 @@ function dirm() {
 				echo "dirm add $ALIAS <path>" >&2
 			fi
 			;;
-		print)
+		path)
 			if [ $# -ne 2 ]; then
-				echo "dirm print takes requires one argument in the form of:" >&2
-				echo "dirm print <alias>" >&2
+				echo "dirm path takes requires one argument in the form of:" >&2
+				echo "dirm path <alias>" >&2
 				return
 			fi
 			ALIAS="$2"

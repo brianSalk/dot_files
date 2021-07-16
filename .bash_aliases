@@ -17,4 +17,4 @@ alias OFF='shutdown now'
 alias LS='cls;ls'
 alias CD='dirm goto'
 alias g++='g++ -std=c++20'
-
+alias SL='sl | lolcat'
