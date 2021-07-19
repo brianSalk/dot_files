@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/brian/Documents/cpp/stl/forward_list'
 let g:netrw_dirhist_8='/home/brian/Documents/python/reddit_bots/stavvy_bot/stavvy_bot'
 let g:netrw_dirhist_7='/home/pi/Documents/notes/regex/mastering_regular_expressions/del_me'
 let g:netrw_dirhist_6='/home/pi/Documents/notes/languages/awk/functions'

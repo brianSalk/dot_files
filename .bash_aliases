@@ -11,6 +11,7 @@ alias Gc='git commit'
 alias Gs='git status'
 alias Gi='git init'
 alias Gpom='git push origin main || ( echo retrying command with master; git push origin master )'  #if main fails, use master
+alias Greset_to_remote='git fetch origin;git reset --hard origin/main'
 alias Gunstage='git rm -rf --cached'
 alias open_sudoers='sudo visudo /etc/sudoers'
 alias OFF='shutdown now'
