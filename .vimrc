@@ -62,11 +62,11 @@ let delimitMate_expand_cr = 1
 " -------------------------------------
 set updatetime=100 " holding cursor over word for 1/10 second displays the info
 command Err YcmShowDetailedDiagnostic
-
+" language specific shortcuts -------------------------
 au Filetype java nnoremap \p aSystem.out.println();<Esc>hi
 au Filetype java nnoremap \m ipublic class <ESC>"%pF.c2w {<ENTER>public static void main(String[] args) {<ENTER>System.out.println("Hello world");<ENTER>}<ENTER>}<Esc>2kll
 au Filetype cpp nnoremap \p astd::cout << ;<Esc>i
-au Filetype cpp nnoremap \m a#include <iostream><ENTER><ENTER>int main(int argc, char* argv[]) {<ENTER>std::cout << "" << std::endl;<ENTER>}<ESC>kEEE"
+au Filetype cpp nnoremap \m a#include <iostream><ENTER><ENTER>int main(int argc, char* argv[]) {<ENTER>std::cout << "" << '\n';<ENTER>}<ESC>kEEEi
 au Filetype c nnoremap \m a#include <stdio.h><ENTER><ENTER>int main(int argc, char* argv[]) {<ENTER>}<ESC>ko
 au Filetype js nnoremap \p aconsole.log()<Esc>i
 au Filetype python nnoremap \p aprint()<Esc>i
