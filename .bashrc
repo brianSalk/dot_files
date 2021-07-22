@@ -151,3 +151,14 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+##################################################         #_BIRCH
+# profile.source is a file that contains setup commands    #_BIRCH
+# for BIRCH users using the following default shells:      #_BIRCH
+# sh, bash, ksh, ash. The source command                   #_BIRCH
+# causes it to be read and executed at login.              #_BIRCH
+##################################################         #_BIRCH
+if [ -f /home/brian/BIRCH/admin/profile.source ]               #_BIRCH
+   then                                                    #_BIRCH
+     . /home/brian/BIRCH/admin/profile.source                  #_BIRCH
+fi                                                         #_BIRCH
+

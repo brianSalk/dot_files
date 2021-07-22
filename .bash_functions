@@ -127,3 +127,22 @@ function dirm() {
 			;;
 	esac
 }
+# this function compiles a c++ program using g++.  it is really just an alias for g++ [opt...] {file}.cpp -o {file}
+function cmp {
+	for arg;
+	do
+		case $arg in
+			*.cpp)
+				local executable_name=${arg%.cpp}
+				local file_name=${arg}
+				;;
+				*)
+			local flags="${flags} ${arg}"
+		esac
+	done
+	g++ ${flags} ${file_name} -o ${executable_name}
+}
+
+function open_with {
+	xdg-mime query default $(xdg-mime query filetype ${1})	
+}
