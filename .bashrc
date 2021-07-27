@@ -114,7 +114,7 @@ fi
 
 #This is stuff that I added, if anything goes horrably wrong, just try deleting all of this stuff down here first
 set -o vi
-set -o noclobber
+set -o noclobber # this gets overridden if BIRCH is installed
 export PATH="$PATH:$HOME/.vim/pack/plugins/start/vim-superman/bin"
 export AWKPATH="/usr/local/share/awk"
 PROMPT_DIRTRIM=2
