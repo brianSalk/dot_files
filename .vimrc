@@ -62,6 +62,9 @@ let delimitMate_expand_cr = 1
 " -------------------------------------
 set updatetime=100 " holding cursor over word for 1/10 second displays the info
 command Err YcmShowDetailedDiagnostic
+" remove all spaces and newlines from selected text, very useful for copy
+" +and pasted fasta files.
+au FileType * vnoremap \1 <Esc>:'<,'>s/\s\\|\n//g<ENTER> 
 " language specific shortcuts -------------------------
 au Filetype java nnoremap \p aSystem.out.println();<Esc>hi
 au Filetype java nnoremap \m ipublic class <ESC>"%pF.c2w {<ENTER>public static void main(String[] args) {<ENTER>System.out.println("Hello world");<ENTER>}<ENTER>}<Esc>2kll
@@ -75,6 +78,8 @@ au Filetype sh nnoremap \p aecho
 au FileType perl nnoremap\m i#!/usr/bin/perl<ENTER>
 au FileType plaintex nnoremap \p pggi\documentclass{article}<ENTER>\begin{document}<ENTER>\end{document}<ESC>O
 au FileType text setlocal spell spelllang=en_us
+au FileType cpp vnoremap \c <Esc>:'<,'>s/^/\/\//<ENTER>
+au Filetype cpp nnoremap \c <Esc>:s/^/\/\//<ENTER>
 " here is the shame section, this is all stuff I just copy and pasted without
 " understading
 set t_ut= " this fixes the background color scrolling issue somehow
