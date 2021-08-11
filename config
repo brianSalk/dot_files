@@ -14,13 +14,20 @@ function PROMPT_AND_READ {
 		fi
 	fi
 }
-if [ ! -f "files_installed"  ]; then
+declare -u do_instal
+while [ "${do_instal}" != "Y" ] && [ "${do_instal}" != "N" ]
+do
+	read -p "Do you want to install a bunch of programs (Y/n)? " do_instal
+done
+
+
+if [ ${do_instal} = "Y" ]; then
 	# break long linst of arguments to apt-get install for slow computers.
 	sudo apt-get -y install vim python3 tmux git 
 	sudo apt-get -y install build-essential cmake vim-nox python3-dev 
 	sudo apt-get -y install mono-complete golang nodejs default-jdk npm
 	sudo apt-get -y install g++ gcc clang
-	touch files_installed # this prevents you from attempting to reinstall a bunch of stuff
+	sudo apt-get -y install ls-sensors
 fi
 # to read more about the proceeding line check out:
 # https://www.google.com/search?channel=fs&client=ubuntu&q=when+is+readarray+supported+in+bash
