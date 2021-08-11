@@ -27,7 +27,8 @@ if [ ${do_instal} = "Y" ]; then
 	sudo apt-get -y install build-essential cmake vim-nox python3-dev 
 	sudo apt-get -y install mono-complete golang nodejs default-jdk npm
 	sudo apt-get -y install g++ gcc clang
-	sudo apt-get -y install ls-sensors
+	sudo apt-get -y install lm-sensors
+	sudo apt-get -y install ncbi-blast
 fi
 # to read more about the proceeding line check out:
 # https://www.google.com/search?channel=fs&client=ubuntu&q=when+is+readarray+supported+in+bash
