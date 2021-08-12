@@ -65,6 +65,8 @@ command Err YcmShowDetailedDiagnostic
 " remove all spaces and newlines from selected text, very useful for copy
 " +and pasted fasta files.
 vnoremap \1 <ESC>:'<,'>s/\s\\|\n//g<ENTER> 
+au Filetype cpp vnoremap \tt ><ESC>'<Otry {<ESC>:s/^\(\s*\)\(\/\/\)\?/\1/<ENTER>'>o} catch () {<ESC>:s/^\(\s*\)\(\/\/\)\?/\1/<ENTER>o}<ESC>k2ei
+au Filetype cpp vnoremap \ti ><ESC>'<Oif () {<ESC>:s/^\(\s*\)\(\/\/\)\?/\1/<ENTER>'>o} <ESC>:s/^\(\s*\)\(\/\/\)\?/\1/<ENTER><ESC>'<k2ei
 " language specific shortcuts -------------------------
 au Filetype java nnoremap \p aSystem.out.println();<Esc>hi
 au Filetype java nnoremap \m ipublic class <ESC>"%pF.c2w {<ENTER>public static void main(String[] args) {<ENTER>System.out.println("Hello world");<ENTER>}<ENTER>}<Esc>2kll
