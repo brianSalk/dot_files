@@ -54,7 +54,78 @@ function! Wrap_selection(beg,_end,indent)
 	if a:indent
 		:normal '<>'>
 	endif
+endfunction
 
+function! Find_replace(find_regex, replace_word)
+	silent! execute '%s/' . a:find_regex . '/' . a:replace_word . '/ge'
+	silent! execute ':wnext'
+endfunction
+
+function! Find_replace_for_each_arg() 
+	let find_regex = input("pattern to find: ")
+	let replace_word = input("word to replace: ")
+	let arg_counter = 0
+	let args = argc()
+	let num_occurances = 0
+	execute ':first'
+	while arg_counter < args
+		let arg_counter = arg_counter + 1
+		let match_str = execute('%s/' . find_regex . '//ng')
+		"let match_str = "2 or 3"
+		let each_num_occurances = matchstr(match_str, '^\n\d*')
+		let each_num_occurances = each_num_occurances[1:] 
+		let num_occurances = num_occurances + str2nr(each_num_occurances,10)
+		silent! execute ':next'
+	endwhile
+	let prompt = "replace all " . num_occurances . " occurances of " . find_regex . " with " . replace_word . " ?(Y/n): "
+	let do_replace = input(prompt)
+	if tolower(do_replace) == 'y'
+		execute ':first'
+		let arg_counter = 0
+		while arg_counter < args
+			let arg_counter = arg_counter + 1
+			call Find_replace(find_regex, replace_word)
+		endwhile
+
+	endif
+	echo 'replaced all' num_occurances 'of' find_regex 'with' replace_word
+	" create a list from the args command
+	execute ':first'
+	let args_list = split(execute('args'))
+	" remove [ and ] from first arg
+	let args_list[0] = args_list[0][1:-2]
+	" loop thru args_list and check if find_regex
+	let args_contain_match=0
+	let args_to_rename = []
+	for each in args_list
+		if matchstr(each,find_regex) != ""
+			let args_contain_match = 1
+			let args_to_rename += [each]
+		endif
+	endfor
+	if args_contain_match
+		let replace_in_title = input('would you like to replace ' . find_regex . ' with ' . replace_word . ' in filenames?(Y/n): ')
+		if tolower(replace_in_title) == 'y'
+			" call :next until you reach the last file
+			let arg_counter = 0
+			while arg_counter < args
+				let each_file = expand('%')
+				if count(args_to_rename,each_file) > 0
+					let new_file = substitute(each_file,find_regex,replace_word,"g")
+					silent! execute ':saveas' new_file
+					" if newfile could not be saved, DO NOT ERASE OLD FILE!
+					if expand('%') == new_file
+						call delete(each_file)
+					else
+						echoerr 'unable to rename' each_file 'to' new_file ', make sure you do not already have a file with that name in you WD'
+					endif
+				endif
+				let arg_counter = arg_counter + 1
+				silent! execute ':next'
+			endwhile
+			
+		endif
+	endif
 endfunction
 
 " -----------------------
@@ -79,6 +150,7 @@ set viminfo='9999,f1
 set laststatus=2
 set stl+=%{ConflictedVersion()} " allow to see version name in statusbar
 set completeopt-=preview
+" the following 4 remaps allow faster switching between windows
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
@@ -111,6 +183,7 @@ let delimitMate_expand_cr = 1
 set nofoldenable
 set updatetime=100 " holding cursor over word for 1/10 second displays the info
 command Err YcmShowDetailedDiagnostic
+nnoremap \fra :first<ENTER>:call Find_replace_for_each_arg()<ENTER>
 " remove all spaces and newlines from selected text, very useful for copy
 " +and pasted fasta files.
 vnoremap \1 <ESC>:'<,'>s/\s\\|\n//g<ENTER> 
