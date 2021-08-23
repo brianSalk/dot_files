@@ -146,3 +146,10 @@ function cmp {
 function open_with {
 	xdg-mime query default $(xdg-mime query filetype ${1})	
 }
+for_each_in_dir() {
+	local cmd="${*-xdg-open}"
+	for each in *
+	do
+		$cmd "$each"
+	done
+}
