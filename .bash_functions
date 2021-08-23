@@ -146,13 +146,3 @@ function cmp {
 function open_with {
 	xdg-mime query default $(xdg-mime query filetype ${1})	
 }
-# this is essentially an alias for the find command that uses an extended regex by default!
-function efind {
-	local args
-	for arg
-	do
-		[ $arg = '-regex' ] && arg="-regextype posix-extended $arg"
-		args="$args $arg"
-	done
-	find $args
-}

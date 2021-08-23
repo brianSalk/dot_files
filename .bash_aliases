@@ -10,7 +10,7 @@ alias Ga='git add'
 alias Gc='git commit'
 alias Gs='git status'
 alias Gi='git init'
-alias Gpom='git push origin main || { echo retrying command with master >&2 ; git push origin master; }'  #if main fails, use master
+alias Gpom='git push origin main'
 alias Gpo='git push origin'
 alias Gp='git push'
 alias Gf='git fetch'
@@ -21,3 +21,10 @@ alias LS='cls;ls'
 alias CD='dirm goto'
 alias g++='g++ -std=c++20'
 alias SL='sl | lolcat'
+
+# the following code allows you to have local aliases that are not recorded by version control, these aliases might be specific to one computer
+LOCAL_A=~/.local_bash_aliases
+if [ -f ${LOCAL_A} ]
+then
+	. ${LOCAL_A}
+fi

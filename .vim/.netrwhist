@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/brian/Documents/practice'
+let g:netrw_dirhist_4='/home/brian/Documents'
 let g:netrw_dirhist_3='/home/brian/Documents/cpp/stl/forward_list'
 let g:netrw_dirhist_2='/home/brian/del_me.d'
 let g:netrw_dirhist_1='/home/brian/BIRCH'
@@ -8,5 +10,3 @@ let g:netrw_dirhist_9='/home/brian/Documents/cpp/stl/forward_list'
 let g:netrw_dirhist_8='/home/brian/Documents/python/reddit_bots/stavvy_bot/stavvy_bot'
 let g:netrw_dirhist_7='/home/pi/Documents/notes/regex/mastering_regular_expressions/del_me'
 let g:netrw_dirhist_6='/home/pi/Documents/notes/languages/awk/functions'
-let g:netrw_dirhist_5='/home/pi/Documents/projects/java/coursera/week4/notes'
-let g:netrw_dirhist_4='/home/pi/Documents/notes/math/calc/1'
