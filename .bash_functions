@@ -153,20 +153,19 @@ for_each_in_dir() {
 		$cmd "$each"
 	done
 }
-# FIX ME: why is this not working? I quoted the regex perfectly and if I copy and past the echoed text and feed it to find it runs perfectly
+# this function needs to be this way, the find and poke technique will not work
+# alias for find [...] -regextype posix-extended [...]
 efind() {
 	for each in "$@"
 	do
-		if [ "$each" = "-regex" ]
+		if [[ "$each" =~ -i?regex ]] && [[ "${regex_found-x}" = x ]]
 		then
 			local -a args[${#args[@]}]="-regextype"
 			local -a args[${#args[@]}]="posix-extended"
-			if [ "${found_regex-x}" = "x" ]
-			then
-				local found_regex=1
-			fi
+			local regex_found=
 		fi
 		local -a args[${#args[@]}]="$each"
 	done
+	echo "${args[@]}"
 	find "${args[@]}"
 }
