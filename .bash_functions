@@ -7,7 +7,7 @@
 # checking if an alias already exists then updating the value.
 # allowing aliases and paths to contain space (or any other metacharacter)
 
-function dirm() {
+dirm() {
 	local ALIAS=""
 	local _PATH=""
 	if [ ! -f $HOME/.dirm ]; then
@@ -166,4 +166,19 @@ efind() {
 		local -a args[${#args[@]}]="$each"
 	done
 	find "${args[@]}"
+}
+
+# this is a copy-and-past from stack overflow written by user SebMa
+Sudo() {
+	local firstArg=$1
+	if [ $(type -t $firstArg) = function ]
+	then
+			shift && command sudo bash -c "$(declare -f $firstArg);$firstArg $*"
+	elif [ $(type -t $firstArg) = alias ]
+	then
+			alias sudo='\sudo '
+			eval "sudo $@"
+	else
+			command sudo "$@"
+	fi
 }
