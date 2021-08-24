@@ -157,7 +157,7 @@ for_each_in_dir() {
 efind() {
 	for each in "$@"
 	do
-		if [[ "$each" =~ -i?regex ]] && [[ "${regex_found-x}" = x ]]
+		if [[ "$each" =~ ^-i?regex$ ]] && [[ "${regex_found-x}" = x ]]
 		then
 			local -a args[${#args[@]}]="-regextype"
 			local -a args[${#args[@]}]="posix-extended"
