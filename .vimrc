@@ -231,6 +231,9 @@ augroup END
 augroup filetype_bash
 	autocmd!
 	au Filetype sh nnoremap \p aecho 
+	au Filetype sh vnoremap \ti <ESC>:call Wrap_selection("if [[  ]]\nthen","fi",1)<ENTER>'<2kf]hi
+	au Filetype sh vnoremap \tw <ESC>:call Wrap_selection("while [[  ]]\ndo","done",1)<ENTER>'<2kf]hi
+	au Filetype sh vnoremap \tf <ESC>:call Wrap_selection("for each in \ndo","done",1)<ENTER>'<2kA
 augroup END
 augroup filetype_perl
 	autocmd!

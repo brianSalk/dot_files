@@ -128,7 +128,7 @@ function dirm() {
 	esac
 }
 # this function compiles a c++ program using g++.  it is really just an alias for g++ [opt...] {file}.cpp -o {file}
-function cmp {
+cmp() {
 	for arg;
 	do
 		case $arg in
@@ -143,7 +143,7 @@ function cmp {
 	g++ ${flags} ${file_name} -o ${executable_name}
 }
 
-function open_with {
+open_with() {
 	xdg-mime query default $(xdg-mime query filetype ${1})	
 }
 for_each_in_dir() {
@@ -152,4 +152,21 @@ for_each_in_dir() {
 	do
 		$cmd "$each"
 	done
+}
+# FIX ME: why is this not working? I quoted the regex perfectly and if I copy and past the echoed text and feed it to find it runs perfectly
+efind() {
+	for each in "$@"
+	do
+		if [ "$each" = "-regex" ]
+		then
+			local -a args[${#args[@]}]="-regextype"
+			local -a args[${#args[@]}]="posix-extended"
+			if [ "${found_regex-x}" = "x" ]
+			then
+				local found_regex=1
+			fi
+		fi
+		local -a args[${#args[@]}]="$each"
+	done
+	find "${args[@]}"
 }
