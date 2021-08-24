@@ -153,7 +153,6 @@ for_each_in_dir() {
 		$cmd "$each"
 	done
 }
-# this function needs to be this way, the find and poke technique will not work
 # alias for find [...] -regextype posix-extended [...]
 efind() {
 	for each in "$@"
@@ -166,6 +165,5 @@ efind() {
 		fi
 		local -a args[${#args[@]}]="$each"
 	done
-	echo "${args[@]}"
 	find "${args[@]}"
 }

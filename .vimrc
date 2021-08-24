@@ -237,8 +237,7 @@ augroup filetype_bash
 	au Filetype sh vnoremap \tw <ESC>:call Wrap_selection("while [[  ]]\ndo","done",1)<ENTER>'<2kf]hi
 	au Filetype sh vnoremap \tf <ESC>:call Wrap_selection("for each in \ndo","done",1)<ENTER>'<2kA
 	au Filetype sh vnoremap \tc <ESC>:call Wrap_selection("case in \n)\n",";;\nesac",1)<ENTER>'<2kA
-	au Filetype sh command S execute 'silent! ! . ' . expand('%') | redraw!
-	au Filetype sh command WS execute 'w' | execute '! source ' . expand('%')
+	au Filetype sh vnoremap \tc :s/^/#/<ENTER>
 augroup END
 augroup filetype_perl
 	autocmd!
