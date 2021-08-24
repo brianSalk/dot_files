@@ -125,7 +125,7 @@ if [ -f $PY_3_8 ]; then
 fi
 export EDITOR='vim'
 export VISUAL='vim'
-_IFS=$IFS
+declare -r _IFS=$IFS
 # figure out if you want to delete this part
 DIR_M_PATH='/usr/local/bin/dir_m.sh'
 if [ -f "$DIR_M_PATH" ]
