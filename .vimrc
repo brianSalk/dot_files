@@ -256,6 +256,8 @@ augroup filetype_cpp
 	au Filetype cpp nnoremap \c <Esc>:s/^/\/\//<ENTER>
 	au FileType cpp vnoremap \u <Esc>:'<,'>s/^\(\s\)*\/\{2,\}/\1/<ENTER>
 	au Filetype cpp nnoremap \T	atemplate <typename ><Esc>i
+	au filetype cpp vnoremap \tf <ESC>:call Wrap_selection("for (size_t i{}; i < x; ++i) {","}",1)<ENTER>'<k_fxs
+	au Filetype cpp vnoremap \rt <ESC>'</} catch(<ENTER>d'>k<'<dd
 	au BufNewFile main.cpp :normal\m
 augroup END
 augroup filetype_all

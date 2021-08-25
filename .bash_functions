@@ -133,24 +133,25 @@ cmp() {
 	do
 		case $arg in
 			*.cpp)
-				local executable_name=${arg%.cpp}
-				local file_name=${arg}
-				;;
-				*)
-			local flags="${flags} ${arg}"
+				local executable_name="${arg%.cpp}"
+				local file_name="${arg}"
+			;;
+			*)
+				local -a args+=("${arg}")
 		esac
 	done
-	g++ ${flags} ${file_name} -o ${executable_name}
+	local args+=("${file_name}" -o "${executable_name}")
+	g++ "${args[@]}"
 }
 
 open_with() {
 	xdg-mime query default $(xdg-mime query filetype ${1})	
 }
 for_each_in_dir() {
-	local cmd="${*-xdg-open}"
+	[ ${1+x} ] || { echo "no args"; set -- "${@:1:1}" "xdg-open"; }
 	for each in *
 	do
-		$cmd "$each"
+		"$@" "$each"
 	done
 }
 # alias for find [...] -regextype posix-extended [...]
