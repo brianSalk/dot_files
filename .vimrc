@@ -128,6 +128,46 @@ function! Find_replace_for_each_arg()
 	endif
 endfunction
 
+function Find_class_templates()
+	let class_name = expand('%')[:-3]
+	execute ":normal! gg/\.*class.*" . class_name . "\<ESC>k"
+	let line = getline('.')
+	" now parse the args out
+	" first remove template < and >
+	let line = substitute(line, "^\\s*template\\s*<\\s*","","")
+	let line = substitute(line, "\\s*>\\s*$", "","")
+
+	let args = split(line,"\\s*,\\?\\s*typename\\s*")
+	let above = ""
+	let below = ""
+	for each in args
+		let below = below . each . ","
+	endfor
+	let below = below[:-2]
+	for each in args
+		let above = above . "typename " . each . ", "
+	endfor
+	let above = above[:-3]
+	return [above,below]
+endfunction
+
+function Goto_hpp()
+	let both = Find_class_templates()
+	let above = both[0]
+	let below = both[1]
+	let name = expand('%')
+	let name = name[:-2] . "hpp"
+	execute "'<,'>yank"
+	execute "set switchbuf=useopen"
+	execute "sbuffer " name
+	execute "$"
+	:normal otemplate< 
+	execute ":normal! i" . above . ">"
+	execute "$put"
+	execute "$"
+	execute ":normal! _f(bi" . name[:-5] . "<>::"
+	execute ":normal! F>i" . below
+endfunction
 " -----------------------
 set number
 set scrolloff=0 " ensure that pressing L and H puts cursor at top/bottom of screen
@@ -238,6 +278,7 @@ augroup filetype_bash
 	au Filetype sh vnoremap \tf <ESC>:call Wrap_selection("for each in \ndo","done",1)<ENTER>'<2kA
 	au Filetype sh vnoremap \tc <ESC>:call Wrap_selection("case in \n)\n",";;\nesac",1)<ENTER>'<2kA
 	au Filetype sh vnoremap \tc :s/^/#/<ENTER>
+	au filetype sh vnoremap \rc :s/^\(\s*\)\(#\)/\1/
 augroup END
 augroup filetype_perl
 	autocmd!
@@ -256,9 +297,11 @@ augroup filetype_cpp
 	au Filetype cpp nnoremap \c <Esc>:s/^/\/\//<ENTER>
 	au FileType cpp vnoremap \u <Esc>:'<,'>s/^\(\s\)*\/\{2,\}/\1/<ENTER>
 	au Filetype cpp nnoremap \T	atemplate <typename ><Esc>i
-	au filetype cpp vnoremap \tf <ESC>:call Wrap_selection("for (size_t i{}; i < x; ++i) {","}",1)<ENTER>'<k_fxs
+	au filetype cpp vnoremap \tf <ESC>:call Wrap_selection("for (size_t i{0}; i < x; ++i) {","}",1)<ENTER>'<k_fxs
 	au Filetype cpp vnoremap \rt <ESC>'</} catch(<ENTER>d'>k<'<dd
 	au BufNewFile main.cpp :normal\m
+	au BufNewFile,BufReadPre *.h execute "let template_args=''"
+	au BufNewFile,BufReadPre *.h vnoremap \def <ESC>:call Goto_hpp()<ENTER>
 augroup END
 augroup filetype_all
 	autocmd!
@@ -268,3 +311,8 @@ augroup END
 " understading
 set t_ut= " this fixes the background color scrolling issue somehow
 let &t_SI = "\e[6 q" " this makes my cursor look normal even in my shell changes it
+try
+	source .local_vimrc
+catch
+	" no local_vimrc
+endtry

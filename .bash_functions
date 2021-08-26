@@ -156,17 +156,15 @@ for_each_in_dir() {
 }
 # alias for find [...] -regextype posix-extended [...]
 efind() {
-	for each in "$@"
+	for ((i=1;i<=$#;++i))
 	do
-		if [[ "$each" =~ ^-i?regex$ ]] && [[ "${regex_found-x}" = x ]]
+		if [[ "${!i}" =~ ^-i?regex$ ]]
 		then
-			local -a args[${#args[@]}]="-regextype"
-			local -a args[${#args[@]}]="posix-extended"
-			local regex_found=
+			set -- "${@:1:i-1}" "-regextype" "posix-extended" "${@:i}"
+			break
 		fi
-		local -a args[${#args[@]}]="$each"
 	done
-	find "${args[@]}"
+	find "${@}"
 }
 
 # this is a copy-and-past from stack overflow written by user SebMa
