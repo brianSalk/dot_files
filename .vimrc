@@ -138,6 +138,12 @@ function Find_class_templates()
 	let line = substitute(line, "\\s*>\\s*$", "","")
 
 	let args = split(line,"\\s*,\\?\\s*typename\\s*")
+	" check for default args
+	let i = 0
+	for	each in args
+		let args[i]	= substitute(each,"\\s*=.*","","")
+		let i = i + 1
+	endfor
 	let above = ""
 	let below = ""
 	for each in args
