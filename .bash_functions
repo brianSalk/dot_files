@@ -181,3 +181,61 @@ Sudo() {
 			command sudo "$@"
 	fi
 }
+
+goodnight_brain() {
+	while [[ "$yorn" != "yes" || "$yorn" != "no" ]]
+	do
+		read -p 'do I have to go to bed? ' yorn
+		yorn=${yorn,,}
+		if [[ ${yorn} == yes ]]
+		then
+			echo "ok... :-("
+			sleep 1
+			shutdown now
+		elif [[ ${yorn} == no ]]
+		then
+			echo 'thanks for letting me stay up with you guys!!'
+			return 0
+		else
+			echo "${yorn} is not part of my vocabulary" 
+		fi
+	done
+
+}
+# sets up my tmux session the way I like for c++ projects, but only does so if a .session file is present in the given directory
+cmux() {
+	if [[ $# -ne 1 || ! -d "$@" ]]
+	then
+		>&2 echo 'invalid argument'
+		return 1
+	fi
+	local last=$(pwd)
+	cd "$@"
+	local is_session_in_dir=0
+	for each in *
+	do
+		if [[ "$each" =~ .*session$ ]]
+		then
+			local vim_session=$each
+			local is_session_in_dir=1
+			break
+		fi
+	done
+	if [ "$is_session_in_dir" -eq 0 ]
+	then
+		>&2 echo "no vim session in $@"
+		cd $last
+		return 1
+	fi
+	wmctrl -r ':ACTIVE:' -b toggle,fullscreen
+	local session=${vim_session##*/}
+	local session=${session%.*}
+	tmux new-session -d -s $session
+	local window=0
+	tmux rename-window -t session
+	tmux send-keys -t $session:$window 'tmux split-window -v' C-m 'tmux resize-pane -D 10' C-m 'sleep 1' C-m 'clear' C-m 'vim -S '$vim_session C-m
+	tmux attach-session -t $session
+}
+Q() {
+	$@ &> /dev/null &	
+}

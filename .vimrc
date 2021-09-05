@@ -167,8 +167,8 @@ function Goto_hpp()
 	execute "set switchbuf=useopen"
 	execute "sbuffer " name
 	execute "$"
-	:normal otemplate< 
-	execute ":normal! i" . above . ">"
+	:normal! otemplate<
+	execute ":normal! A" . above . ">"
 	execute "$put"
 	execute "$"
 	execute ":normal! _f(bi" . name[:-5] . "<>::"
@@ -185,6 +185,7 @@ set nohlsearch " do not highlight searches by default
 set showcmd " shows command in bottom right corner of screen
 syntax on
 " YcmShowDetailedDiagnostic alias
+let g:ycm_auto_hover = ""
 command Hl :set hlsearch! " use :Hl to toggle highlight
 command Sp :set spell! " use :Sp to toggle spell on and off
 command Ac :call Toggle_ycm_auto_hover() " press :Ac to toggle YCM's auto popup
