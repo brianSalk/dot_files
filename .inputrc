@@ -1,5 +1,6 @@
 set keyseq-timeout 50
 set bell-style none
+set editing-mode vi
 # there are various things you can do to adjust the
 #+shape and blink-rate of the cursor, you can even
 #+make it different for insert and command mode!

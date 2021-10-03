@@ -28,7 +28,9 @@ if [ ${do_instal} = "Y" ]; then
 	sudo apt-get -y install mono-complete golang nodejs default-jdk npm
 	sudo apt-get -y install g++ gcc clang
 	sudo apt-get -y install lm-sensors
-	sudo apt-get -y install ncbi-blast
+	sudo apt-get -y install ncbi-blast+
+	sudo apt-get -y install vim-gtk3 sl
+	sudo apt-get -y install gdb valgrind 
 fi
 # to read more about the proceeding line check out:
 # https://www.google.com/search?channel=fs&client=ubuntu&q=when+is+readarray+supported+in+bash

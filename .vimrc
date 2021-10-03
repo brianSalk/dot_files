@@ -174,6 +174,26 @@ function Goto_hpp()
 	execute ":normal! _f(bi" . name[:-5] . "<>::"
 	execute ":normal! F>i" . below
 endfunction
+function Reverse_complement()
+	let regx_orig = getreg("x") " put this back in register x when done
+	normal! _"xy$
+	let dna = getreg("x")
+	let dna = substitute(dna, "A", 'a', "g")
+	let dna = substitute(dna, "T", "A", "g")
+	let dna = substitute(dna, "a", "T", "g")
+	let dna = substitute(dna, "G", "g", "g")
+	let dna = substitute(dna, "C", "G", "g")
+	let dna = substitute(dna, "g", "C", "g")
+	let my_list = split(dna, '\zs')
+	let ans = ""
+	for each in my_list
+		let ans = each .  ans
+	endfor
+	normal! ddo
+	normal! k
+	put =ans
+		
+endfunction
 " -----------------------
 set number
 set scrolloff=0 " ensure that pressing L and H puts cursor at top/bottom of screen
@@ -234,7 +254,10 @@ nnoremap \fra :first<ENTER>:call Find_replace_for_each_arg()<ENTER>
 " remove all spaces and newlines from selected text, very useful for copy
 " +and pasted fasta files.
 vnoremap \1 <ESC>:'<,'>s/\s\\|\n//g<ENTER> 
-
+augroup filetype_fasta
+	autocmd!
+	au Filetype fasta nnoremap \comp :call Reverse_complement()<ENTER>
+augroup END
 augroup filetype_cpp_java
 	autocmd!
 	au Filetype cpp,java vnoremap \tt <ESC>:call Wrap_selection("try {", "} catch() {}",1)<ENTER>'>j$i<ENTER><ESC>kt)a

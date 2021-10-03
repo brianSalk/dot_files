@@ -227,7 +227,7 @@ cmux() {
 		cd $last
 		return 1
 	fi
-	wmctrl -r ':ACTIVE:' -b toggle,fullscreen
+	wmctrl -r ':ACTIVE:' -b add,maximized_vert,maximized_horz
 	local session=${vim_session##*/}
 	local session=${session%.*}
 	tmux new-session -d -s $session
@@ -238,4 +238,7 @@ cmux() {
 }
 Q() {
 	$@ &> /dev/null &	
+}
+get_newest() {
+	ls -ltc | head -2 | tail -1 | cut -d' ' -f 11-;
 }

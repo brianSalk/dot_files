@@ -151,6 +151,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
 ##################################################         #_BIRCH
 # profile.source is a file that contains setup commands    #_BIRCH
 # for BIRCH users using the following default shells:      #_BIRCH
@@ -162,3 +163,7 @@ if [ -f /home/brian/BIRCH/admin/profile.source ]               #_BIRCH
      . /home/brian/BIRCH/admin/profile.source                  #_BIRCH
 fi                                                         #_BIRCH
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
