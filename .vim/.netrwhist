@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/briansalkas/Dropbox/ubuntu'
 let g:netrw_dirhist_6='/home/brian/Documents/web_dev/django/udemy_course/first_project/projects'
 let g:netrw_dirhist_5='/home/brian/.vim'
 let g:netrw_dirhist_4='/home/brian/Documents/java/gradle/build'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_1='/home/brian/Documents/java/gradle_premade/gs-gradle/initi
 let g:netrw_dirhist_0='/usr/share/doc/libedit2'
 let g:netrw_dirhist_9='/home/brian/Documents/cpp/stl/list'
 let g:netrw_dirhist_8='/home/brian/Documents/cpp/stl/vector'
-let g:netrw_dirhist_7='/home/brian/Maildir/new'

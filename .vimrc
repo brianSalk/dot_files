@@ -261,8 +261,11 @@ augroup END
 augroup filetype_cpp_java
 	autocmd!
 	au Filetype cpp,java vnoremap \tt <ESC>:call Wrap_selection("try {", "} catch() {}",1)<ENTER>'>j$i<ENTER><ESC>kt)a
+	au FileType cpp,java nnoremap \tt V<ESC>:call Wrap_selection("try {", "} catch() {}",1)<ENTER>'>j$i<ENTER><ESC>kt)a
 	au Filetype cpp,java vnoremap \ti <ESC>:call Wrap_selection("if (true) {","}",1)<ENTER>'<k_ftciw
+	au Filetype cpp,java nnoremap \ti V<ESC>:call Wrap_selection("if (true) {","}",1)<ENTER>'<k_ftciw
 	au Filetype cpp,java vnoremap \tw <ESC>:call Wrap_selection("while (true) {","}",1)<ENTER>'<k_ftciw
+	au Filetype cpp,java nnoremap \tw V<ESC>:call Wrap_selection("while (true) {","}",1)<ENTER>'<k_ftciw
 	au Filetype cpp,java vnoremap \tc <ESC>'<i/*<ESC>'>$a*/<ESC>
 	au FileType cpp,java nnoremap \tc _i/*<ESC>$a*/<ESC>
 augroup END
@@ -316,7 +319,9 @@ augroup filetype_perl
 augroup END
 augroup filetype_plaintex
 	autocmd!
-	au FileType plaintex nnoremap \p pggi\documentclass{article}<ENTER>\begin{document}<ENTER>\end{document}<ESC>O
+	au FileType plaintex,tex nnoremap \m ggi\documentclass{article}<ENTER>\begin{document}<ENTER>\end{document}<ESC>O
+	au FileType plaintex,tex nnoremap \tu i\usepackage{}<ESC>i
+	au FileType plaintex,tex vnoremap \tc <ESC>:call Wrap_selection("\\begin{center}", "\\end{center}", 1)<ENTER>
 augroup END
 au FileType text setlocal spell spelllang=en_us
 augroup filetype_cpp 
@@ -336,6 +341,18 @@ augroup END
 augroup filetype_all
 	autocmd!
 	au FileType * set foldmethod=syntax " when the filetype is known, create folds based on syntax, otherwise they are created manually
+augroup END
+augroup filetype_rust 
+	autocmd!
+	au fileType rust nnoremap \m ifn main() {<ESC>oprintln!("hello world");<ESC>o}
+	au FileType rust vnoremap \ti <ESC>:call Wrap_selection("if {","}",1)<ENTER>'<k_ea 
+	au FileType rust nnoremap \ti V<ESC>:call Wrap_selection("if {","}",1)<ENTER>'<k_ea 
+	au FileType rust vnoremap \tl <ESC>:call Wrap_selection("loop {","}",1)<ENTER>
+	au FileType rust nnoremap \tl V<ESC>:call Wrap_selection("loop {","}",1)<ENTER>
+	au FileType rust vnoremap \tc <ESC>:call Wrap_selection("/*","*/",0)<ENTER>
+	au FileType rust vnoremap \tk <ESC>:'<,'>s/^/\/\//<ENTER>
+	au FileType rust nnoremap \tk V<ESC>:'<,'>s/^/\/\//<ENTER>
+	au FileType rust vnoremap \rk <ESC>:'<,'>s/^\s*\/\///
 augroup END
 " here is the shame section, this is all stuff I just copy and pasted without
 " understading

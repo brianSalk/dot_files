@@ -240,5 +240,123 @@ Q() {
 	$@ &> /dev/null &	
 }
 get_newest() {
-	ls -ltc | head -2 | tail -1 | cut -d' ' -f 11-;
+	stat -c "%z %n" * | sort | tail -${1-"1"} | head -1 | cut -d' ' -f4-
+}
+backup_files() {
+	# make an option -q for quiet, which does not prompt or read from stdin
+	local QUIET_FLAG="OFF"
+	local PATTERN='*'
+	while [[ ${#@} -gt 0 ]]
+	do
+		case $1 in
+			-q)
+				local QUIET_FLAG="ON" # if quiet_flag set, do not prompt
+				;;
+			*)
+				PATTERN="${1}"
+				;;
+		esac
+		shift
+	done
+	for each in *
+	do 
+		if [[ -e ".${each}.backup" && ${QUIET_FLAG} == "OFF" && "${each}" == ${PATTERN} ]]
+		then
+			read -rp "would you like to overwrite the preexisting file .${each}.backup? (Y/n) " answer
+			answer=${answer,,}
+			while [[ $answer != 'y' && $answer != 'n' ]]
+			do
+				echo please enter either 'y' or 'n'
+				read -rp "would you like to overwrite the preexisting file .${each}.backup? (Y/n) " answer
+				answer=${answer,,}
+			done
+		fi
+		if [[ ${answer-'y'} == 'y' && ${each} == ${PATTERN} ]]
+		then
+			cp "${each}" ".${each}.backup"
+		fi
+	done
+
+}
+# modify this to be more verbose and give warnings about how many files [and bytes] are being overridden.
+restore_files() {
+	# allow user the use the same -q flag as above,
+	# also use -f flag to only restore certain files,
+	# use -p flag to allow user to use a pattern on which files to update.
+	local PATTERN=".*.backup"
+	while [[ ${#@} -eq 1 ]] 
+	do
+		PATTERN=${1}
+		shift
+	done
+	for each in .*.backup
+	do 
+		tmp="${each%.*}";
+		if [[ "${tmp#.}" = "$PATTERN"  ]]
+		then
+			cp -i "${each}" "${tmp#.}"
+		fi
+
+	done	
+}
+vercomp() {
+	local v1=( ${1//./ } )
+	local v2=( ${2//./ } )
+	local max_len=${#v1[@]}
+	if [[ $max_len -lt ${#v2[@]} ]]
+	then
+		max_len=${#2}
+	fi
+	for i in $( seq 0 $((max_len - 1)) )
+	do
+		if [[ -z v1[$i] ]]
+		then
+			v1[$i]=0
+		fi
+		if [[ -z ${v2[$i]} ]]
+		then
+			v2[$i]=0
+		fi
+		if [[ ! ${v1[$i]} =~ ^[0-9]+$ ]]
+		then
+			echo >&2 ${1} is not a valid version 
+			return 1
+		fi
+		if [[ ! ${v2[$i]} =~ ^[0-9]+$ ]]
+		then
+			echo >&2 ${2} is not a valid version
+			return 1
+		fi
+		if [[ ${v1[$i]} -gt ${v2[$i]} ]]
+		then
+			echo 1
+			return 0
+		elif [[ ${v1[$i]} -lt ${v2[$i]} ]]
+		then
+			echo -1
+			return 0
+		fi
+	done
+	echo 0
+	return 0
+}
+are_you_hot() {
+	res="$(core_temp | tr --squeeze ' ' | cut -d' ' -f3 | cut -c 2-3 )"
+	max=0
+	for each in ${res[@]} 
+	do
+		if [[ $each -gt $max ]]
+		then
+			max=$each
+		fi
+	done
+	if [[ $max -lt 60 ]]
+	then
+		echo "Im chill bro"
+	elif [[ $max -lt 80 ]]
+	then
+		echo "Im a bit hot"
+	else
+		echo 'Im schvitzing here!'
+	fi
 }
