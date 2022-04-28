@@ -114,7 +114,7 @@ fi
 
 #This is stuff that I added, if anything goes horrably wrong, just try deleting all of this stuff down here first
 set -o vi
-set -o noclobber # this gets overridden if BIRCH is installed
+set -o noclobber 
 export PATH="$PATH:$HOME/.vim/pack/plugins/start/vim-superman/bin"
 export AWKPATH="/usr/local/share/awk"
 PROMPT_DIRTRIM=2
@@ -136,34 +136,23 @@ if [ -f $HOME/.bash_functions ]; then
 	. $HOME/.bash_functions
 fi
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/brian/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/briansalkas/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/brian/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/brian/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/briansalkas/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/briansalkas/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/brian/anaconda3/bin:$PATH"
+        export PATH="/home/briansalkas/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-
-##################################################         #_BIRCH
-# profile.source is a file that contains setup commands    #_BIRCH
-# for BIRCH users using the following default shells:      #_BIRCH
-# sh, bash, ksh, ash. The source command                   #_BIRCH
-# causes it to be read and executed at login.              #_BIRCH
-##################################################         #_BIRCH
-if [ -f /home/brian/BIRCH/admin/profile.source ]               #_BIRCH
-   then                                                    #_BIRCH
-     . /home/brian/BIRCH/admin/profile.source                  #_BIRCH
-fi                                                         #_BIRCH
-
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

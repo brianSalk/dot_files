@@ -31,6 +31,13 @@ if [ ${do_instal} = "Y" ]; then
 	sudo apt-get -y install ncbi-blast+
 	sudo apt-get -y install vim-gtk3 sl
 	sudo apt-get -y install gdb valgrind 
+	sudo apt-get -y install python3.10 # might be out of date by the time you use this
+	sudo apt-get -y install python3-ipython
+	sudo apt-get -y install rustc cargo
+	sudo apt-get -y install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 # needed for graphical stuff with anaconda
+	sudo apt-get -y install moreutils
+	sudo apt-get -y install igv
+
 fi
 # to read more about the proceeding line check out:
 # https://www.google.com/search?channel=fs&client=ubuntu&q=when+is+readarray+supported+in+bash
