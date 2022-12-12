@@ -1,4 +1,6 @@
 # dot_files
+Clone this repo to your computer have access to all my dot files.  You probably will not like every feature I use but feel free to give it a shot :-) \
+## How to use
 open a UNIX terminal. \
 create a directory called repos (if you don't already have one) `mkdir repos`\
 navigate to the repos director `cd repos`\
