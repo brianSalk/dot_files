@@ -1,5 +1,5 @@
 # dot_files
-open a UNIX terminal.\ 
+open a UNIX terminal. \
 create a directory called repos (if you don't already have one) `mkdir repos`\
 navigate to the repos director `cd repos`\
 clone this repository to the repos directory by running `git clone https://github.com/brianSalk/dot_files.git` \
