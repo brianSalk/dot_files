@@ -27,6 +27,7 @@ alias print_path='awk -v RS=":" '1' <<< $PATH'
 alias DU="2> /dev/null sudo du / -h | tail -1 |cut -d' ' -f 1"
 alias core_temp="sensors | awk '/^Core [0-9]:.*/'"
 alias Jn='jupyter notebook'
+alias Sr='streamlit run'
 # the following code allows you to have local aliases that are not recorded by version control, these aliases might be specific to one computer
 LOCAL_A=~/.local_bash_aliases
 if [ -f ${LOCAL_A} ]
