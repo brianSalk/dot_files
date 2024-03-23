@@ -34,6 +34,8 @@ LOCAL_A=~/.local_bash_aliases
 if [ -f ${LOCAL_A} ]
 then
 	. ${LOCAL_A}
+else
+	touch ${LOCAL_A}
 fi
 
 # appended with the Alias command in ~/.bash_function
