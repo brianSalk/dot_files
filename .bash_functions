@@ -360,3 +360,17 @@ are_you_hot() {
 		echo 'Im schvitzing here!'
 	fi
 }
+
+Alias() {
+	if [[ $# -eq 0 ]] || [[ $# -eq 1 ]]
+	then
+		echo This simple function adds an alias to and then sources ~/.bash_aliases
+		echo At least two arguments are required
+		echo Alias "<aliasName> <commandName>" [--optional -args -to -command]
+		echo ex. Alias ll ls -l
+		return
+	fi
+	echo "" >> ~/.bash_aliases
+	echo "alias $1='""${@:2}""'" >> ~/.bash_aliases
+	. ~/.bash_aliases
+}
