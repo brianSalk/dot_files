@@ -362,7 +362,7 @@ are_you_hot() {
 }
 
 Alias() {
-	if [[ $# -eq 0 ]] || [[ $# -eq 1 ]]
+	if [[ $# -lt 2 ]]
 	then
 		echo This simple function adds an alias to and then sources ~/.bash_aliases
 		echo At least two arguments are required
