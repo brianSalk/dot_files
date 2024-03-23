@@ -371,6 +371,6 @@ Alias() {
 		return
 	fi
 	echo "" >> ~/.bash_aliases
-	echo "alias $1='""${@:2}""'" >> ~/.bash_aliases
+	echo "alias $1='""${@:2}""'" >> ~/.local_bash_aliases
 	. ~/.bash_aliases
 }

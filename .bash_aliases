@@ -37,5 +37,3 @@ then
 else
 	touch ${LOCAL_A}
 fi
-
-# appended with the Alias command in ~/.bash_function
